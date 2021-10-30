@@ -1,0 +1,79 @@
+{
+  "name": "desktop",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/main.js",
+  "scripts": {
+    "start:dev": "concurrently \"npm run react:dev\" \"npm run electron:dev-run\"",
+    "start:prod": "concurrently \"npm run react:prod-build\" \"npm run electron:prod-run\"",
+    "electron:dev-build": "cross-env NODE_ENV=development webpack --config ./configs/webpack.electron.config.js --mode=development",
+    "electron:dev-run": "npm run electron:dev-build && electron .",
+    "electron:prod-build": "cross-env NODE_ENV=production webpack --config ./configs/webpack.electron.config.js --mode=production",
+    "electron:prod-run": "npm run electron:prod-build && electron .",
+    "react:dev": "cross-env NODE_ENV=development webpack serve --config configs/webpack.config.react.dev.js --mode development",
+    "react:prod-build": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.react.dev.js --mode production",
+    "build": "cross-env NODE_ENV=production concurrently \"npm run react:prod-build\" \"npm run electron:dev-build\" && npm run electron:prod-build",
+    "electron:build": "electron-builder build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "build": {
+    "productName": "PockerLab",
+    "extends": null,
+    "files": [
+      "dist",
+      "node_modules",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "npm": "^8.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@reduxjs/toolkit": "^1.6.2",
+    "@types/react": "^17.0.31",
+    "@types/react-dom": "^17.0.10",
+    "babel-loader": "^8.2.3",
+    "babel-polyfill": "^6.26.0",
+    "concurrently": "^6.3.0",
+    "cross-env": "^7.0.3",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.13.1",
+    "html-webpack-plugin": "^5.4.0",
+    "path-browserify": "^1.0.1",
+    "react-redux": "^7.2.5",
+    "stylelint": "^14.0.1",
+    "stylelint-config-standard": "^23.0.0",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
